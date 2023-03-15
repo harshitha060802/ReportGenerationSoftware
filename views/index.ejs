@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+
+    <!-- Bootswatch CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/yeti/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/custom.css" />
+    <title>Report Generation | MOCK PLACEMENTS 2021</title>
+  </head>
+  <body>
+    <!-- Include Navbar Partial -->
+    <%- include("partials/navbar.ejs"); %>
+
+    <!-- Container class begins here -->
+    <main class="container">
+      <div class="row mt-4">
+        <div class="col-md-8 m-auto">
+          <div class="card card-body">
+            <h1 class="text-center m-3 mb-4">REPORT GENERATION</h1>
+
+            <!-- Flash message partial -->
+            <% if(error && error.length) { %>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Please Enter the Correct Registration Number.</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <% } %>
+
+            <form action="/" method="POST" class="needs-validation" novalidate>
+              <div class="form-group">
+                <!-- Input for registration number -->
+                <label for="registerNum"><b>Registration Number</b></label>
+                <input
+                  type="text"
+                  name="registerNum"
+                  id="registerNum"
+                  class="form-control"
+                  placeholder="Enter Registration Number"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-dark btn-block">GET REPORT</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Container class ends here -->
+
+    <!-- Include Navbar Partial -->
+    <%- include("partials/footer.ejs"); %>
+  </body>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+  <!-- PopperJS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+  <!-- BootstrapJS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <!-- Form Validation -->
+  <script src="/js/validateForms.js"></script>
+</html>

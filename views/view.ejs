@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+
+    <!-- Bootswatch CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/yeti/bootstrap.min.css"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/custom.css" />
+
+    <title><%= student.name %> - <%= student.register_num %></title>
+  </head>
+  <body>
+    <% const sumOfValues = (obj) => Object.values(obj).reduce((a, b) => a + b) %>
+
+    <!-- Include Navbar Partial -->
+    <%- include("partials/navbar.ejs"); %>
+
+    <main class="container">
+      <h1 class="text-center"><b>MOCK PLACEMENTS 2023</b></h1>
+      <h3 class="text-center">STUDENT REPORT</h3> <br>
+      <!-- <h5><a href="/pdf/<%= student._id  %>" style="text-decoration: underline" target="_blank">Print Report</a></h5> -->
+      <div class="row">
+        <div class="col-md-4">
+          <p class="text-uppercase"><b>Student Details</b></p>
+          <table class="table table-sm table-bordered table-hover">
+            <tbody>
+              <tr>
+                <td class="text-uppercase font-weight-bold">Registration Number</td>
+                <td><%= student.register_num %></td>
+              </tr>
+              <tr>
+                <td class="text-uppercase font-weight-bold">Name</td>
+                <td><%= student.name %></td>
+              </tr>
+              <tr>
+                <td class="text-uppercase font-weight-bold">Department</td>
+                <td><%= student.dept %></td>
+              </tr>
+              <tr>
+                <td class="text-uppercase font-weight-bold">E-Mail ID</td>
+                <td><%= student.email %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-md-4">
+          <p class="text-uppercase"><b>Aptitude Test Results</b></p>
+          <table class="table table-sm table-bordered table-hover text-center" id="aptitudeScores">
+            <thead class="text-uppercase bg-light">
+              <th>Parameter</th>
+              <th>Score</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-uppercase"><b>Core</b></td>
+                <td><%= student.aptitude_scores["core"] %> / 20</td>
+              </tr>
+              <tr>
+                <td class="text-uppercase"><b>Verbal</b></td>
+                <td><%= student.aptitude_scores["verbal"] %> / 10</td>
+              </tr>
+              <tr>
+                <td class="text-uppercase"><b>Quants</b></td>
+                <td><%= student.aptitude_scores["quants"] %> / 10</td>
+              </tr>
+              <tr>
+                <td class="text-uppercase"><b>Coding</b></td>
+                <td><%= student.aptitude_scores["programming"] %> / 10</td>
+              </tr>
+            </tbody>
+            <tfoot class="text-uppercase bg-light">
+              <tr>
+                <td><b>Total Score</b></td>
+                <td><%= sumOfValues(student.aptitude_scores)%> / 50</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <div class="col-md-4">
+          <p class="text-uppercase"><b>Group Discussion Results</b></p>
+          <table class="table table-sm table-bordered table-hover text-center" id="gdScores">
+            <thead class="text-uppercase bg-light">
+              <th>Parameter</th>
+              <th>Score</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-uppercase"><b>Subject Knowledge</b></td>
+                <td><%= student.gd_scores["subject_knowledge"] %> / 5</td>
+              </tr>
+              <tr>
+                <td class="text-uppercase"><b>Communication Skills</b></td>
+                <td><%= student.gd_scores["communication_skills"] %> / 5</td>
+              </tr>
+              <tr>
+                <td class="text-uppercase"><b>Body Language</b></td>
+                <td><%= student.gd_scores["body_language"] %> / 5</td>
+              </tr>
+              <tr>
+                <td class="text-uppercase"><b>Listening Skills</b></td>
+                <td><%= student.gd_scores["listening_skills"] %> / 5</td>
+              </tr>
+              <tr>
+                <td class="text-uppercase"><b>Critical Thinking</b></td>
+                <td><%= student.gd_scores["critical_thinking"] %> / 5</td>
+              </tr>
+              <tr>
+                <td class="text-uppercase"><b>Leadership Skills</b></td>
+                <td><%= student.gd_scores["leadership_skills"] %> / 5</td>
+              </tr>
+            </tbody>
+            <tfoot class="text-uppercase bg-light">
+              <tr>
+                <td><b>Total Score</b></td>
+                <td><%= sumOfValues(student.gd_scores) %> / 30</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <% if(scores && scores.length) { %>
+      <p class="h3">Interviewer Feedback:-</p>
+      <div class="row">
+        <% scores.forEach(score => { %>
+        <div class="col-md-4 mb-3">
+          <div class="card border-success">
+            <div class="card-body">
+              <h5 class="card-title"><%= score.interviewer.name %> - <%= score.interviewer.company %></h5>
+              <% let interview_date = new Date(score.interviewer.date) %>
+              <h6 class="card-subtitle mb-2 text-muted"><%= interview_date.getDate() %> February, 2021</h6>
+              <% const sumOfValues = (obj) => Object.values(obj).reduce((a, b) => parseInt(a) + parseInt(b)) %>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item text-uppercase">
+                  Professional Appearence : <%= score.scores["professionalAppearence"] %> / 5
+                </li>
+                <li class="list-group-item text-uppercase">
+                  Managerial Aptitude : <%= score.scores["managerialAptitude"] %> / 5
+                </li>
+                <li class="list-group-item text-uppercase">
+                  General Intelligence : <%= score.scores["generalIntelligence"] %> / 5
+                </li>
+                <li class="list-group-item text-uppercase">
+                  Technical Knowledge : <%= score.scores["technicalKnowledge"] %> / 5
+                </li>
+                <li class="list-group-item text-uppercase">
+                  Communication Skills : <%= score.scores["communicationSkills"] %> / 5
+                </li>
+                <li class="list-group-item text-uppercase">
+                  Self Confidence : <%= score.scores["selfConfidence"]%> / 5
+                </li>
+                <li class="list-group-item text-uppercase font-weight-bold">
+                  Total Score : <%= sumOfValues(score.scores); %> / 30
+                </li>
+              </ul>
+              <div class="card-body">
+                <p class="card-text"><b>COMMENTS : </b><%= score.comments %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+      <% } else { %>
+      <!-- <p class="text-uppercase font-weight-bold">
+        You have no interviewer feedback because you did not attend any online interviews or you have chosen to attend
+        mock placements offline.
+      </p> -->
+      <% } %>
+
+      <div class="col-md-12 text-center">
+        <button type="button" class="btn btn-lg btn-light"><a href="/pdf/<%= student._id  %>" style="color: black; text-decoration: none; font-size: 18px;" target="_blank">Print Report</a></button>
+      </div>  
+         
+
+    </main>
+
+    <!-- Include Footer Partial -->
+    <%- include("partials/footer.ejs"); %>
+  </body>
+</html>

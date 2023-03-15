@@ -1,0 +1,32 @@
+body {
+  overflow-x: hidden;
+  padding-bottom: 5.1rem;
+}
+
+/* CSS for the scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* CSS for the footer */
+footer {
+  display: block;
+  position: fixed;
+  bottom: 0;
+  padding: 0.65rem 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 2;
+}
